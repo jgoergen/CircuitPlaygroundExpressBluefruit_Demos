@@ -1,6 +1,8 @@
 # CircuitPlaygroundExpressBluefruit_Demos
 A collection of simple python scripts for the Adafruit Circuit Playground Express Bluefruit microcontroller board.
 
+These can be purchased from (Here)[https://www.adafruit.com/product/4333]
+
 ## Initial Setup of device:
 ### information taken from the [Adafruit Guide](https://learn.adafruit.com/adafruit-circuit-playground-bluefruit/circuitpython)
 1) Note the version number and download the latest stable .uf2 CircuitPython file from [here](https://circuitpython.org/board/circuitplayground_bluefruit/).
