@@ -1,4 +1,4 @@
-# CircuitPlaygroundExpressBluefruit_Demos
+# Adafruit Circuit Playground Express Bluefruit Demos
 A collection of simple python scripts for the Adafruit Circuit Playground Express Bluefruit microcontroller board.
 
 These can be purchased from [Here](https://www.adafruit.com/product/4333).
