@@ -141,6 +141,10 @@ def getTilt():
     return [value / adafruit_lis3dh.STANDARD_GRAVITY for value in lis3dh.acceleration]
 
 
+def remap(x, in_min, in_max, out_min, out_max):
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+
 x, y, z = getTilt()
 print("Tilt: x = %0.3f G, y = %0.3f G, z = %0.3f G" % (x, y, z))
 print("Light " + str(getLightVal()))
@@ -153,13 +157,45 @@ setAllLEDS((255, 255, 255))
 time.sleep(1)
 setAllLEDS((0, 0, 0))
 
+TILT_UPDATE_WAIT = 10
+lastTileUpdate = 0
+
 while True:
     if buttonA.value:  # button is pushed
         onboardLED.value = True
     else:
         onboardLED.value = False
 
-    if lis3dh.tapped:
-        print("Tapped!")
+    if (time.monotonic() + TILT_UPDATE_WAIT > lastTileUpdate):
+        lastTileUpdate = time.monotonic()
+
+        if lis3dh.tapped:
+            setAllLEDS((255, 255, 255))
+            pixels.show()
+            time.sleep(0.5)
+
+        else:
+            x, y, z = getTilt()
+            fixedX = int(remap(x, -1, 1, 0, 10))
+            fixedY = int(remap(y, -1, 1, 0, 10))
+            fixedZ = int(remap(z, -1, 1, 0, 10))
+
+            for i in range(10):
+                r = 0
+                g = 0
+                b = 0
+
+                if (fixedX == i):
+                    r = 255
+
+                if (fixedY == i):
+                    g = 255
+
+                if (fixedZ == i):
+                    b = 255
+
+                pixels[i] = (r, g, b)
+
+            pixels.show()
 
     time.sleep(0.01)
